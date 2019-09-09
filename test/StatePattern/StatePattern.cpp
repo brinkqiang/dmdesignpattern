@@ -4,6 +4,7 @@ using namespace std;
 class State;
 class ConcreteStateB;
 class ConcreteStateA;
+class Context;
 
 class State {
 public:
@@ -11,22 +12,18 @@ public:
     virtual void OperationInterface(Context*) = 0;
     virtual ~State() { }
 protected:
-    bool ChangeState(Context* con, State *st) {
-        con->ChangeState(st);
-    }
+    bool ChangeState(Context* con, State *st);
 };
 
 class ConcreteStateA :public State {
 public:
-    void OperationChangeState(Context* con) {
-        OperationInterface(con);
-        this->ChangeState(con, new ConcreteStateB());
-    }
+    void OperationChangeState(Context* con);
 
     void OperationInterface(Context* con) {
-        cout << "ConcreteStateA::OperationInterface..." << endl;
+        std::cout << "ConcreteStateA::OperationInterface..." << std::endl;
     }
 };
+
 
 class ConcreteStateB :public State {
 public:
@@ -36,7 +33,7 @@ public:
     }
 
     void OperationInterface(Context* con) {
-        cout << "ConcreteStateB::OperationInterface..." << endl;
+        std::cout << "ConcreteStateB::OperationInterface..." << std::endl;
     }
 };
 
@@ -62,6 +59,17 @@ private:
 
     State *_st;
 };
+
+bool State::ChangeState(Context* con, State *st)
+{
+    return con->ChangeState(st);
+}
+
+void ConcreteStateA::OperationChangeState(Context* con)
+{
+    OperationInterface(con);
+    this->ChangeState(con, new ConcreteStateB());
+}
 
 int main() {
     State *st = new ConcreteStateA();
