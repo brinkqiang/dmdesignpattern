@@ -4,21 +4,26 @@
 
 #ifdef WIN32
 #include <stdlib.h>
-inline long long int strtoll(const char *nptr, char **endptr, int base) {
+inline long long int strtoll(const char* nptr, char** endptr, int base)
+{
     return _strtoi64(nptr, endptr, base);
 }
-inline unsigned long long int strtoull(const char *nptr, char **endptr,
-            int base) {
+inline unsigned long long int strtoull(const char* nptr, char** endptr,
+                                       int base)
+{
     return _strtoui64(nptr, endptr, base);
 }
-inline long long int strtoq(const char *nptr, char **endptr, int base) {
+inline long long int strtoq(const char* nptr, char** endptr, int base)
+{
     return _strtoi64(nptr, endptr, base);
 }
-inline unsigned long long int strtouq(const char *nptr, char **endptr,
-            int base) {
+inline unsigned long long int strtouq(const char* nptr, char** endptr,
+                                      int base)
+{
     return _strtoui64(nptr, endptr, base);
 }
-inline long long atoll(const char *nptr) {
+inline long long atoll(const char* nptr)
+{
     return _atoi64(nptr);
 }
 #else
@@ -61,6 +66,7 @@ int CXmlData::GetDataLen()
 int CXmlData::GetChar(char& data, const std::string& strName, xml_node& oXml)
 {
     memsetex(data);
+
     if(m_iPos + (int)sizeof(data) > m_iSize)
     {
         return -1;
@@ -75,9 +81,11 @@ int CXmlData::GetChar(char& data, const std::string& strName, xml_node& oXml)
     return m_iPos;
 }
 
-int CXmlData::GetByte(unsigned char& data, const std::string& strName, xml_node& oXml)
+int CXmlData::GetByte(unsigned char& data, const std::string& strName,
+                      xml_node& oXml)
 {
     memsetex(data);
+
     if(m_iPos + (int)sizeof(data) > m_iSize)
     {
         return -1;
@@ -95,6 +103,7 @@ int CXmlData::GetByte(unsigned char& data, const std::string& strName, xml_node&
 int CXmlData::GetShort(short& data, const std::string& strName, xml_node& oXml)
 {
     memsetex(data);
+
     if(m_iPos + (int)sizeof(data) > m_iSize)
     {
         return -1;
@@ -109,9 +118,11 @@ int CXmlData::GetShort(short& data, const std::string& strName, xml_node& oXml)
     return m_iPos;
 }
 
-int CXmlData::GetWord(unsigned short& data, const std::string& strName, xml_node& oXml)
+int CXmlData::GetWord(unsigned short& data, const std::string& strName,
+                      xml_node& oXml)
 {
     memsetex(data);
+
     if(m_iPos + (int)sizeof(data) > m_iSize)
     {
         return -1;
@@ -129,6 +140,7 @@ int CXmlData::GetWord(unsigned short& data, const std::string& strName, xml_node
 int CXmlData::GetInt(int& data, const std::string& strName, xml_node& oXml)
 {
     memsetex(data);
+
     if(m_iPos + (int)sizeof(data) > m_iSize)
     {
         return -1;
@@ -143,9 +155,11 @@ int CXmlData::GetInt(int& data, const std::string& strName, xml_node& oXml)
     return m_iPos;
 }
 
-int CXmlData::GetDword(unsigned int& data, const std::string& strName, xml_node& oXml)
+int CXmlData::GetDword(unsigned int& data, const std::string& strName,
+                       xml_node& oXml)
 {
     memsetex(data);
+
     if(m_iPos + (int)sizeof(data) > m_iSize)
     {
         return -1;
@@ -160,9 +174,11 @@ int CXmlData::GetDword(unsigned int& data, const std::string& strName, xml_node&
     return m_iPos;
 }
 
-int CXmlData::GetInt64(long long& data, const std::string& strName, xml_node& oXml)
+int CXmlData::GetInt64(long long& data, const std::string& strName,
+                       xml_node& oXml)
 {
     memsetex(data);
+
     if(m_iPos + (int)sizeof(data) > m_iSize)
     {
         return -1;
@@ -177,9 +193,11 @@ int CXmlData::GetInt64(long long& data, const std::string& strName, xml_node& oX
     return m_iPos;
 }
 
-int CXmlData::GetUint64(unsigned long long& data, const std::string& strName, xml_node& oXml)
+int CXmlData::GetUint64(unsigned long long& data, const std::string& strName,
+                        xml_node& oXml)
 {
     memsetex(data);
+
     if(m_iPos + (int)sizeof(data) > m_iSize)
     {
         return -1;
@@ -197,6 +215,7 @@ int CXmlData::GetUint64(unsigned long long& data, const std::string& strName, xm
 int CXmlData::GetFloat(float& data, const std::string& strName, xml_node& oXml)
 {
     memsetex(data);
+
     if(m_iPos + (int)sizeof(data) > m_iSize)
     {
         return -1;
@@ -211,31 +230,11 @@ int CXmlData::GetFloat(float& data, const std::string& strName, xml_node& oXml)
     return m_iPos;
 }
 
-int CXmlData::GetString(char* data, int nSize, const std::string& strName, xml_node& oXml)
+int CXmlData::GetString(std::string& data, int nSize,
+                        const std::string& strName, xml_node& oXml)
 {
     memsetex(data);
-    if(m_iPos + (int)sizeof(data) > m_iSize)
-    {
-        return -1;
-    }
 
-    int nLen = strlen(oXml.text().as_string());
-    if (nLen >= nSize)
-    {
-        return -1;
-    }
-
-    std::stringstream ss;
-    ss << oXml.text().as_string();
-    ss >> data;
-
-    m_iPos += nLen;
-    return m_iPos;
-}
-
-int CXmlData::GetString(std::string& data, int nSize, const std::string& strName, xml_node& oXml)
-{
-    memsetex(data);
     if(m_iPos + (int)sizeof(data) > m_iSize)
     {
         return -1;
@@ -253,7 +252,7 @@ int CXmlData::GetString(std::string& data, int nSize, const std::string& strName
 int CXmlData::Strnlen(const char* pszString, int nSize)
 {
     int i;
-    const char *ptr = pszString;
+    const char* ptr = pszString;
 
     for(i = 0; i < nSize; i++)
     {
@@ -261,6 +260,7 @@ int CXmlData::Strnlen(const char* pszString, int nSize)
         {
             return i;
         }
+
         ptr++;
     }
 

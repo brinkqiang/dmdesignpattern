@@ -56,12 +56,13 @@ public:
     int GetDword(unsigned int& data, const std::string& strName, xml_node& oXml);
 
     int GetInt64(long long& data, const std::string& strName, xml_node& oXml);
-    int GetUint64(unsigned long long& data, const std::string& strName, xml_node& oXml);
+    int GetUint64(unsigned long long& data, const std::string& strName,
+                  xml_node& oXml);
 
     int GetFloat(float& data, const std::string& strName, xml_node& oXml);
 
-    int GetString(char* data, int nSize, const std::string& strName, xml_node& oXml);
-    int GetString(std::string& data, int nSize, const std::string& strName, xml_node& oXml);
+    int GetString(std::string& data, int nSize, const std::string& strName,
+                  xml_node& oXml);
 
     int Strnlen(const char* pszString, int nSize);
 
