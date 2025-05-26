@@ -9,5 +9,5 @@ ModuleSetCompileOptions()
 ModuleSetWinCompilerFlags()
 
 if (PROJECT_IS_TOP_LEVEL)
-    ExeImport("test" "")
+    ExeImport("examples" "")
 endif(PROJECT_IS_TOP_LEVEL)
